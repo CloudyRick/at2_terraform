@@ -26,6 +26,7 @@ data "aws_vpc" "selected" {
   }
 }
 
+
 data "aws_subnets" "isolated" {
   filter {
     name   = "tag:Tier"
