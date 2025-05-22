@@ -126,7 +126,15 @@ resource "aws_ecs_task_definition" "app" {
           hostPort      = 80
           protocol      = "tcp"
         }
-      ]
+      ],
+      logConfiguration = {
+        logDriver = "awslogs",
+        options = {
+          awslogs-group         = "/ecs/${var.task_family}"
+          awslogs-region        = "us-east-1"
+          awslogs-stream-prefix = "ecs"
+        }
+      }
     }
   ])
 
@@ -135,6 +143,7 @@ resource "aws_ecs_task_definition" "app" {
     cpu_architecture        = "ARM64"
   }
 }
+
 
 # LOAD BALANCER
 resource "aws_lb" "main" {
