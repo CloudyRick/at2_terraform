@@ -15,6 +15,10 @@ provider "aws" {
   region = "us-east-1"
 }
 
+locals {
+  public_subnet_keys = keys(var.public_subnets)
+}
+
 # Data Source for AZs
 data "aws_availability_zones" "available" {
   state = "available"
@@ -97,7 +101,7 @@ resource "aws_eip" "nat_eip" {
 # NAT Gateway (for private subnet internet access)
 resource "aws_nat_gateway" "nat" {
   allocation_id = aws_eip.nat_eip.id
-  subnet_id     = aws_subnet.public[values(var.public_subnets)[0]].id
+  subnet_id = aws_subnet.public[local.public_subnet_keys[0]].id
   depends_on    = [aws_internet_gateway.gw]
 
   tags = {
