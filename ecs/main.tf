@@ -133,6 +133,24 @@ resource "aws_ecs_task_definition" "app" {
           protocol      = "tcp"
         }
       ],
+      environment = [
+        {
+            name  = "DB_HOST"
+            value = var.db_host
+        },
+        {
+            name  = "DB_USER"
+            value = var.db_user
+        },
+        {
+            name  = "DB_PASS"
+            value = var.db_pass
+        },
+        {
+            name  = "DB_NAME"
+            value = var.db_name
+        }
+      ],
       logConfiguration = {
         logDriver = "awslogs",
         options = {
