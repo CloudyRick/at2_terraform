@@ -105,6 +105,12 @@ data "aws_iam_role" "lab_role" {
   name = "LabRole"
 }
 
+resource "aws_cloudwatch_log_group" "app" {
+  name              = "/ecs/${var.task_family}"
+  retention_in_days = 7
+}
+
+
 # TASK DEFINITION
 resource "aws_ecs_task_definition" "app" {
   family                   = var.task_family
