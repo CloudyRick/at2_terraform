@@ -136,7 +136,7 @@ resource "aws_db_instance" "gc_mysql" {
 resource "aws_security_group" "rds_access_sg" {
   name        = "gc-rds_access-sg"
   description = "Allow SSH from anywhere (for temporary use)"
-  vpc_id      = data.aws_vpc.vpc_id.id
+  vpc_id      = data.aws_vpc.selected.id
 
   ingress {
     from_port   = 22
