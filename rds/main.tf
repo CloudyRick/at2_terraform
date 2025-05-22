@@ -166,7 +166,7 @@ resource "aws_instance" "rds_access" {
   vpc_security_group_ids = [aws_security_group.rds_access_sg.id]
   associate_public_ip_address = true
   iam_instance_profile   = "LabInstanceProfile"  # Make sure LabRole is attached to this profile
-  key_name = "rcky-assignment.pem"
+  key_name = "rcky-assignment"
 
   tags = {
     Name = "gc-rds_access"
