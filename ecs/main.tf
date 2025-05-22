@@ -101,6 +101,10 @@ resource "aws_security_group" "ecs_sg" {
   }
 }
 
+data "aws_iam_role" "lab_role" {
+  name = "LabRole"
+}
+
 # TASK DEFINITION
 resource "aws_ecs_task_definition" "app" {
   family                   = var.task_family
@@ -108,8 +112,8 @@ resource "aws_ecs_task_definition" "app" {
   requires_compatibilities = ["FARGATE"]
   cpu                      = var.task_cpu
   memory                   = var.task_memory
-  execution_role_arn       = var.execution_role
-  task_role_arn            = var.task_role
+  execution_role_arn       = data.aws_iam_role.lab_role.arn
+  task_role_arn            = data.aws_iam_role.lab_role.arn
 
   container_definitions = jsonencode([
     {
