@@ -84,8 +84,8 @@ resource "aws_db_subnet_group" "gc_rds_subnet_group" {
 
 # Parameter Group (optional)
 resource "aws_db_parameter_group" "gc_rds_pg" {
-  name   = "gc-mysql57-pg"
-  family = "mysql5.7"
+  name   = "gc-mysql80-pg"
+  family = "mysql8.0"
 
   parameter {
     name  = "character_set_server"
@@ -98,7 +98,7 @@ resource "aws_db_parameter_group" "gc_rds_pg" {
   }
 
   tags = {
-    Name = "gc-mysql57-pg"
+    Name = "gc-mysql80-pg"
   }
 }
 
@@ -160,8 +160,8 @@ resource "aws_security_group" "rds_access_sg" {
 
 ## Launch rds_access EC2
 resource "aws_instance" "rds_access" {
-  ami                    = "ami-0c101f26f147fa7fd" # Amazon Linux 2 AMI (us-east-1, ARM64)
-  instance_type          = "t4g.micro"
+  ami                    = "ami-051f7e7f6c2f40dc1" # Amazon Linux 2 AMI (us-east-1, ARM64)
+  instance_type          = "t3.small"
   subnet_id              = data.aws_subnets.public_subnets.ids[0]
   vpc_security_group_ids = [aws_security_group.rds_access_sg.id]
   associate_public_ip_address = true
