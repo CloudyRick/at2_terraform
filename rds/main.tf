@@ -133,8 +133,8 @@ resource "aws_db_instance" "gc_mysql" {
 
 
 ## Security Group for Bastion EC2 (SSH only)
-resource "aws_security_group" "bastion_sg" {
-  name        = "gc-bastion-sg"
+resource "aws_security_group" "rds_access_sg" {
+  name        = "gc-rds_access-sg"
   description = "Allow SSH from anywhere (for temporary use)"
   vpc_id      = data.aws_vpc.vpc_id.id
 
@@ -153,22 +153,22 @@ resource "aws_security_group" "bastion_sg" {
   }
 
   tags = {
-    Name = "gc-bastion-sg"
+    Name = "gc-rds_access-sg"
   }
 }
 
 
-## Launch Bastion EC2
-resource "aws_instance" "bastion" {
+## Launch rds_access EC2
+resource "aws_instance" "rds_access" {
   ami                    = "ami-0c101f26f147fa7fd" # Amazon Linux 2 AMI (us-east-1, ARM64)
   instance_type          = "t4g.micro"
   subnet_id              = data.aws_subnets.public_subnets.ids[0]
-  vpc_security_group_ids = [aws_security_group.bastion_sg.id]
+  vpc_security_group_ids = [aws_security_group.rds_access_sg.id]
   associate_public_ip_address = true
   iam_instance_profile   = "LabRole"  # Make sure LabRole is attached to this profile
 
   tags = {
-    Name = "gc-bastion"
+    Name = "gc-rds_access"
   }
 
   user_data = <<-EOF
