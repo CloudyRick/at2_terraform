@@ -154,7 +154,7 @@ resource "aws_route_table" "isolated" {
   vpc_id = aws_vpc.main.id
 
   tags = {
-    Name = "gc-isolated-rt"
+    Name = "gc-isolated-rt-modified"
   }
 }
 
