@@ -5,8 +5,8 @@ terraform {
     }
   }
   backend "s3" {
-    key    = "PROD/infrastructure.tfstate"
-    bucket = "your-s3-bucket-name"
+    key    = "PROD/networking.tfstate"
+    bucket = "at2-ecs-fargate"
     region = "us-east-1"
   }
 }
@@ -159,3 +159,7 @@ resource "aws_route_table_association" "isolated" {
   subnet_id      = each.value.id
   route_table_id = aws_route_table.isolated.id
 }
+
+
+
+
